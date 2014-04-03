@@ -13,11 +13,7 @@ from django.db import DEFAULT_DB_ALIAS
 
 from . import app_settings
 
-
-def get_instance(
-    model, instance_or_pk,
-    timeout=None, using=None, create=False, defaults=None
-):
+def get_instance(model, instance_or_pk, timeout=None, using=None):
     """
     Returns the ``model`` instance with a primary key of ``instance_or_pk``.
 
@@ -26,9 +22,6 @@ def get_instance(
 
     If omitted, the timeout value defaults to
     ``settings.CACHE_TOOLBOX_DEFAULT_TIMEOUT`` instead of 0 (zero).
-
-    If ``create`` is True, we are going to create the instance in case that it
-    was not found.
 
     Example::
 
@@ -65,12 +58,7 @@ def get_instance(
             cache.delete(key)
 
     # Use the default manager so we are never filtered by a .get_query_set()
-    queryset = model._default_manager.using(using)
-    if create:
-        # It's possible that the related object didn't exist yet
-        instance, _ = queryset.get_or_create(pk=pk, defaults=defaults or {})
-    else:
-        instance = queryset.get(pk=pk)
+    instance = model._default_manager.using(using).get(pk=pk)
 
     data = {}
     for field in instance._meta.fields:
@@ -94,14 +82,12 @@ def get_instance(
 
     return instance
 
-
 def delete_instance(model, *instance_or_pk):
     """
     Purges the cache keys for the instances of this model.
     """
 
     cache.delete_many([instance_key(model, x) for x in instance_or_pk])
-
 
 def instance_key(model, instance_or_pk):
     """
