@@ -3,14 +3,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django-cache-toolbox',
+    name='django-sensible-caching',
     description="Non-magical object caching for Django.",
-    version='0.1',
-    url='http://code.playfire.com/django-cache-toolbox',
-
-    author='Playfire.com',
-    author_email='tech@playfire.com',
-    license='BSD',
-
+    version='1',
     packages=find_packages(),
 )
