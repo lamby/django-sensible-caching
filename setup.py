@@ -6,7 +6,7 @@ setup(
     name='django-sensible-caching',
 
     url="https://chris-lamb.co.uk/projects/django-sensible-caching",
-    version='2.0.1',
+    version='2.0.2',
     description="Non-magical object caching for Django.",
 
     author="Chris Lamb",
