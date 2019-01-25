@@ -1,4 +1,6 @@
-django-cache-toolbox
-============================
+django-sensible-caching
+=======================
 
-Documentation: http://code.playfire.com/django-cache-toolbox/
+**Deprecated**
+
+See: https://github.com/lamby/django-cache-toolbox
